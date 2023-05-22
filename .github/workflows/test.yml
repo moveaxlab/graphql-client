@@ -1,0 +1,32 @@
+name: Test CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Run tests on node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: yarn
+    - name: Check TypeScript definitions
+      run: yarn test:types
+    - name: Check linting
+      run: yarn test:lint
+    - name: Run unit tests with coverage
+      run: yarn test:unit
+    - name: Upload coverage data to coveralls
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}

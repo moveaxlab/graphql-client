@@ -1,5 +1,5 @@
 {
-  "name": "@moveax/graphql-client",
+  "name": "@moveaxlab/graphql-client",
   "version": "0.8.3",
   "description": "Utilities to build GraphQL clients.",
   "main": "./lib/index.js",

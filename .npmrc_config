@@ -1,2 +1,0 @@
-@moveax:registry=https://${MX_NPM_REPOSITORY}/
-_authToken=${MX_NPM_REPOSITORY_TOKEN}

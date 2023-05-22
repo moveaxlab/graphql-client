@@ -2,10 +2,17 @@
   "name": "@moveaxlab/graphql-client",
   "version": "0.8.3",
   "description": "Utilities to build GraphQL clients.",
+  "homepage": "https://github.com/moveaxlab/graphql-client",
   "main": "./lib/index.js",
-  "repository": "https://bitbucket.org/elevenlab/graphql-client",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:moveaxlab/graphql-client.git"
+  },
   "author": "Michelle Laurenti <michelle.laurenti@moveax.it>",
-  "license": "UNLICENSED",
+  "contributors": [
+    "Furio Dipoppa <furio.dipoppa@moveax.it>"
+  ],
+  "license": "MIT",
   "private": false,
   "scripts": {
     "test": "npm-run-all test:*",
@@ -69,5 +76,12 @@
     "hooks": {
       "pre-commit": "yarn test"
     }
-  }
+  },
+  "keywords": [
+    "graphql",
+    "query",
+    "mutation",
+    "subscription",
+    "ws"
+  ]
 }

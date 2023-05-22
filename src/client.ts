@@ -147,7 +147,7 @@ export abstract class GraphQLClient {
     error: Error
   ) => Promise<void>;
 
-  signalTokenRefreshed = () => {
+  signalTokenRefreshed = (): void => {
     if (this.tokenRefreshed) {
       this.tokenRefreshed();
       this.tokenRefreshPromise = null;
@@ -156,7 +156,7 @@ export abstract class GraphQLClient {
     }
   };
 
-  signalTokenRefreshFailed = () => {
+  signalTokenRefreshFailed = (): void => {
     if (this.tokenRefreshFailed) {
       this.tokenRefreshFailed();
       this.tokenRefreshPromise = null;
@@ -174,7 +174,7 @@ export abstract class GraphQLClient {
               this.errorMap[error.extensions.code].acceptsDetails
                 ? [
                     // This is not an abstract class
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     new this.errorMap[error.extensions.code](
                       undefined,
@@ -182,7 +182,7 @@ export abstract class GraphQLClient {
                     ),
                   ]
                 : // This is not an abstract class
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   [new this.errorMap[error.extensions.code]()]
             );
@@ -199,6 +199,7 @@ export abstract class GraphQLClient {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private withTokenRefresh = <A extends unknown[], R>(
     fn: (...args: unknown[]) => Promise<R>
   ): ((...args: unknown[]) => Promise<R>) => {
@@ -206,7 +207,7 @@ export abstract class GraphQLClient {
     const signalTokenExpired = this.signalTokenExpired;
     const getRefreshPromise = this.getRefreshPromise;
 
-    return async function(...args: unknown[]): Promise<R> {
+    return async function (...args: unknown[]): Promise<R> {
       const waitTokenRefresh = getRefreshPromise();
       try {
         return await fn(...args);
@@ -252,7 +253,7 @@ export abstract class GraphQLClient {
     const onSuccess = this.onSuccessCallback;
     const onError = this.onErrorCallback;
 
-    const res = async function(variables: V): Promise<TR> {
+    const res = async function (variables: V): Promise<TR> {
       const context: RequestContext = {
         headers: defaultHeaders,
       };
@@ -323,7 +324,7 @@ export abstract class GraphQLClient {
     const onSuccess = this.onSuccessCallback;
     const onError = this.onErrorCallback;
 
-    const res = async function(variables: V): Promise<TR> {
+    const res = async function (variables: V): Promise<TR> {
       const context: RequestContext = {
         headers: defaultHeaders,
       };

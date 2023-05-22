@@ -11,12 +11,12 @@ import {
 export class SubscriptionsClient extends SubscriptionService {
   private store!: Store;
 
-  initialize = (store: Store) => {
+  initialize = (store: Store): void => {
     this.store = store;
     this.signalReady();
   };
 
-  protected connectionParams = async () => {
+  protected connectionParams = async (): Promise<Record<string, unknown>> => {
     const accessToken = await getAccessToken();
     if (accessToken) {
       return {
@@ -27,29 +27,29 @@ export class SubscriptionsClient extends SubscriptionService {
     }
   };
 
-  protected dispatch = (event: AnyAction | null) => {
+  protected dispatch = (event: AnyAction | null): void => {
     if (event) {
       this.store.dispatch(event);
     }
   };
 
-  protected isTokenExpired = (error: CloseEvent) => {
+  protected isTokenExpired = (error: CloseEvent): boolean => {
     return error.code === 4403;
   };
 
-  protected onConnected = () => {
+  protected onConnected = (): void => {
     this.store.dispatch({ type: Events.socketConnected });
   };
 
-  protected onConnecting = () => {
+  protected onConnecting = (): void => {
     this.store.dispatch({ type: Events.socketConnecting });
   };
 
-  protected onDisconnected = () => {
+  protected onDisconnected = (): void => {
     this.store.dispatch({ type: Events.socketDisconnected });
   };
 
-  protected onError = (error: CloseEvent) => {
+  protected onError = (error: CloseEvent): void => {
     this.store.dispatch({
       type: Events.socketError,
       payload: error,
@@ -57,7 +57,7 @@ export class SubscriptionsClient extends SubscriptionService {
     });
   };
 
-  protected onSocketConnectionError = (error: CloseEvent) => {
+  protected onSocketConnectionError = (error: CloseEvent): void => {
     this.store.dispatch({
       type: Events.socketConnectionError,
       payload: error,
@@ -65,7 +65,7 @@ export class SubscriptionsClient extends SubscriptionService {
     });
   };
 
-  protected onSubscriptionError = (error: Error) => {
+  protected onSubscriptionError = (error: Error): void => {
     this.store.dispatch({
       type: Events.socketSubscriptionError,
       payload: error,
@@ -73,11 +73,11 @@ export class SubscriptionsClient extends SubscriptionService {
     });
   };
 
-  protected onTokenExpired = () => {
+  protected onTokenExpired = (): void => {
     this.store.dispatch({ type: Events.tokenExpired });
   };
 
-  protected latencyMeasured = (latency: number) => {
+  protected latencyMeasured = (latency: number): void => {
     console.log(latency);
   };
 

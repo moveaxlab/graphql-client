@@ -1,3 +1,40 @@
 module.exports = {
-  extends: ['@moveax'],
-};
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'prettier'],
+  rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        arrowParens: 'avoid',
+        bracketSpacing: true,
+        printWidth: 80,
+        semi: true,
+        singleQuote: true,
+        tabWidth: 2,
+        trailingComma: 'es5',
+        useTabs: false,
+      },
+    ],
+    '@typescript-eslint/explicit-member-accessibility': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/prefer-interface': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/consistent-type-definitions': 'error',
+    camelcase: ['error', { properties: 'never' }],
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      { ignoreRestSiblings: true, argsIgnorePattern: '^_' },
+    ],
+    'max-classes-per-file': ['error', 1],
+    'sort-imports': 'off',
+    'lines-between-class-members': ['error', 'always'],
+    complexity: ['error', 10],
+  },};

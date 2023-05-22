@@ -118,7 +118,7 @@ describe('Test subscriptions client', () => {
 
     const tester = new SagaTester();
 
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     await client.connect();
 
@@ -176,7 +176,7 @@ describe('Test subscriptions client', () => {
 
     const tester = new SagaTester();
 
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     await client.connect();
     await client.catCreated.subscribe({});
@@ -244,7 +244,7 @@ describe('Test subscriptions client', () => {
 
     const tester = new SagaTester();
 
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     await client.connect();
     await client.catCreated.subscribe({});
@@ -269,7 +269,7 @@ describe('Test subscriptions client', () => {
 
     const tester = new SagaTester();
 
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     await client.connect();
     await client.catCreated.subscribe({});
@@ -338,7 +338,7 @@ describe('Test subscriptions client', () => {
 
     const tester = new SagaTester();
 
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     await client.connect();
 

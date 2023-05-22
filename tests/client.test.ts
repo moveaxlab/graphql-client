@@ -102,7 +102,7 @@ describe('Test client queries', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(querySaga);
 
@@ -150,7 +150,7 @@ describe('Test client queries', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(querySaga);
 
@@ -200,7 +200,7 @@ describe('Test client queries', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(querySaga);
 
@@ -259,7 +259,7 @@ describe('Test client queries', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(querySaga);
 
@@ -314,7 +314,7 @@ describe('Test client queries', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(querySaga);
 
@@ -353,7 +353,7 @@ describe('Test client queries', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(querySaga);
 
@@ -409,7 +409,7 @@ describe('Test client queries', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(querySaga);
     });
@@ -443,7 +443,7 @@ describe('Test client mutations', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(mutationSaga);
 
@@ -492,7 +492,7 @@ describe('Test client mutations', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(mutationSaga);
 
@@ -543,7 +543,7 @@ describe('Test client mutations', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(mutationSaga);
 
@@ -604,7 +604,7 @@ describe('Test client mutations', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(mutationSaga);
 
@@ -644,7 +644,7 @@ describe('Test client mutations', () => {
 
       const tester = new SagaTester();
 
-      client.initialize((tester as unknown) as Store);
+      client.initialize(tester as unknown as Store);
 
       tester.start(mutationSaga);
 
@@ -748,7 +748,7 @@ describe('Test token expired with concurrent calls', () => {
 
     tester.dispatch(refreshTokenStm.start({ client }));
 
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     const queryPromise = client.getCatAuthenticated();
 
@@ -793,7 +793,7 @@ describe('Test token expired with concurrent calls', () => {
 
     tester.dispatch(refreshTokenStm.start({ client }));
 
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     const queryPromise = client.getCatAuthenticated();
 
@@ -850,13 +850,13 @@ describe('test union types', () => {
     getAccessToken.mockResolvedValue('access token');
 
     const tester = new SagaTester();
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     tester.start(querySaga);
 
-    const event = ((await tester.waitFor(
+    const event = (await tester.waitFor(
       'horse fetched'
-    )) as unknown) as AnyAction;
+    )) as unknown as AnyAction;
 
     expect(event.payload).toStrictEqual(horse);
   });
@@ -871,13 +871,13 @@ describe('test union types', () => {
     getAccessToken.mockResolvedValue('access token');
 
     const tester = new SagaTester();
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     tester.start(querySaga);
 
-    const event = ((await tester.waitFor(
+    const event = (await tester.waitFor(
       'doggo fetched'
-    )) as unknown) as AnyAction;
+    )) as unknown as AnyAction;
 
     expect(event.payload).toStrictEqual(dog);
   });
@@ -915,7 +915,7 @@ describe('test custom error handling', () => {
     );
     catQuery.mockRejectedValueOnce(error);
     const tester = new SagaTester();
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     tester.start(querySaga);
 
@@ -924,7 +924,7 @@ describe('test custom error handling', () => {
   });
 });
 
-describe('test custom headers', function() {
+describe('test custom headers', function () {
   const client = new CatsClient(`http://localhost:${PORT}`);
 
   function* querySaga() {
@@ -951,7 +951,7 @@ describe('test custom headers', function() {
     };
     catQuery.mockReturnValue(mockCat);
     const tester = new SagaTester();
-    client.initialize((tester as unknown) as Store);
+    client.initialize(tester as unknown as Store);
 
     tester.start(querySaga);
 

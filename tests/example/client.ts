@@ -34,7 +34,7 @@ export class CatsClient extends GraphQLClient {
     });
   }
 
-  initialize = (store: Store) => {
+  initialize = (store: Store): void => {
     this.store = store;
   };
 
@@ -43,13 +43,18 @@ export class CatsClient extends GraphQLClient {
     CATCHABLE_ERROR: CatchableError,
   };
 
-  onTokenExpired = () => {
+  onTokenExpired = (): void => {
     this.store!.dispatch({
       type: Events.tokenExpired,
     });
   };
 
-  onErrorCallback = async (_type, _name, _executionTime, e) => {
+  onErrorCallback = async (
+    _type: string,
+    _name: string,
+    _executionTime: number,
+    e: Error
+  ): Promise<void> => {
     if (e instanceof CatchableError) {
       this.store?.dispatch({
         type: 'ERROR_CATCHED',

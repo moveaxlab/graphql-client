@@ -8,7 +8,7 @@ The clients provide authentication via cookies or a bearer token authorization h
 Install the client:
 
 ```bash
-yarn add @moveax/graphql-client
+yarn add @moveaxlab/graphql-client
 ```
 
 ## Usage

@@ -8,6 +8,7 @@ import {
 } from '@apollo/client';
 import { GraphQLWsLink } from './graphql-ws.link';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface MakeSubscriptionOptions<R, E, TE = E> {
   name: string;
   eventCreator: (event: E) => TE | null;
@@ -79,11 +80,11 @@ export abstract class SubscriptionService {
     this.activeSubscriptions = new Map();
   }
 
-  protected signalReady() {
+  protected signalReady(): void {
     this.resolve();
   }
 
-  connect = async () => {
+  connect = async (): Promise<void> => {
     if (this.connected) return;
     await this.isReady;
     this.initializeSubscriptionClient();
@@ -92,15 +93,15 @@ export abstract class SubscriptionService {
     this.signalConnected();
   };
 
-  private gracefullyReconnect = () => {
+  private gracefullyReconnect = (): void => {
     this.restartRequestedBeforeConnection = true;
   };
 
-  reconnect = async () => {
+  reconnect = async (): Promise<void> => {
     await this.gracefullyReconnect();
   };
 
-  disconnect = async () => {
+  disconnect = async (): Promise<void> => {
     if (!this.connected) return;
     await this.isReady;
     this.subscriptionMap.forEach(sub => {
@@ -259,7 +260,7 @@ export abstract class SubscriptionService {
     subscriptionTransformer: (data: FetchResult<R>) => TR | null,
     query: DocumentNode,
     variables: V
-  ) => {
+  ): Promise<ZenObservable.Subscription> => {
     const subscriptionKey = this.makeSubscriptionKey(name, variables);
 
     if (this.subscriptionMap.has(subscriptionKey)) {
@@ -268,7 +269,7 @@ export abstract class SubscriptionService {
           `Trying to subscribe twice to same subscription ${subscriptionKey}, skipping.`
         );
       }
-      return this.subscriptionMap.get(subscriptionKey);
+      return this.subscriptionMap.get(subscriptionKey)!;
     }
 
     await this.isConnected;
@@ -292,7 +293,7 @@ export abstract class SubscriptionService {
     return subscription;
   };
 
-  protected unsubscribe = <V>(name: string, variables?: V) => {
+  protected unsubscribe = <V>(name: string, variables?: V): void => {
     const subscriptionKey = this.makeSubscriptionKey(name, variables);
     const subscription = this.subscriptionMap.get(subscriptionKey);
     if (!subscription) {
@@ -330,7 +331,7 @@ export abstract class SubscriptionService {
     };
   };
 
-  getActiveSubscriptions() {
+  getActiveSubscriptions(): [string, unknown][] {
     return [...this.activeSubscriptions.values()];
   }
 }

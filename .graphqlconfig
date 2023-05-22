@@ -1,0 +1,4 @@
+{
+  "name": "Example GraphQL schema",
+  "schemaPath": "tests/example/schema.graphql"
+}

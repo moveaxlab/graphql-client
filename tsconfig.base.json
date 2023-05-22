@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "declaration": true,
+    "sourceMap": true,
+    "target": "ES2019",
+    "module": "commonjs",
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true
+  }
+}

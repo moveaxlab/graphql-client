@@ -1,0 +1,27 @@
+overwrite: true
+generates:
+  ./tests/example/__generated__/types.ts:
+    plugins:
+      - add: "/* eslint-disable */"
+      - add: "/* THIS IS A GENERATED FILE. DO NOT EDIT */"
+      - typescript
+      - typescript-operations
+    schema:
+      - ./tests/example/schema.graphql
+    documents:
+      - ./tests/example/mutations/*.ts
+      - ./tests/example/queries/*.ts
+      - ./tests/example/subscriptions/*.ts
+    config:
+      scalars:
+        Long: number
+      maybeValue: T | undefined
+      avoidOptionals: false
+      skipTypename: true
+      declarationKind: interface
+      flattenGeneratedTypes: true
+  ./tests/example/__generated__/introspection-result.ts:
+    schema:
+      - ./tests/example/schema.graphql
+    plugins:
+      - fragment-matcher

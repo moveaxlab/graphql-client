@@ -1,0 +1,56 @@
+# Queries
+
+type Cat {
+  id: ID!
+  name: String!
+}
+
+interface Animal {
+  id: ID!
+  name: String!
+}
+
+type Dog implements Animal {
+  id: ID!
+  name: String!
+  barks: Boolean!
+}
+
+type Horse implements Animal {
+  id: ID!
+  name: String!
+  runs: Boolean!
+}
+
+union AnimalResult = Dog | Horse
+
+type Query {
+  cat: Cat!
+  animal: AnimalResult!
+}
+
+# Mutations
+
+input CatInput {
+  name: String!
+}
+
+type CatResponse {
+  id: ID!
+}
+
+type Mutation {
+  addCat(catInput: CatInput): CatResponse!
+  refreshToken: Boolean
+}
+
+# Subscriptions
+
+type CatCreated {
+  id: ID!
+  name: String!
+}
+
+type Subscription {
+  catCreated: CatCreated!
+}

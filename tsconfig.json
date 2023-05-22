@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "rootDirs": ["./src", "./tests"],
+    "noEmit": true
+  }
+}

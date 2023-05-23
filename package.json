@@ -12,6 +12,7 @@
   "contributors": [
     "Furio Dipoppa <furio.dipoppa@moveax.it>"
   ],
+  "files": ["lib"],
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -26,6 +27,7 @@
     "generate:graphql:schema": "graphql-codegen --config codegen.yml",
     "generate:graphql:lint": "eslint --fix --ext .ts ./tests/example/__generated__"
   },
+
   "dependencies": {
     "@apollo/client": "^3.0.2",
     "apollo-link-sentry": "^3.0.2",

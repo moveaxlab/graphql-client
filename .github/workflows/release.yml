@@ -9,7 +9,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -26,23 +26,6 @@ jobs:
         run: yarn test:unit
       - name: Build
         run: yarn build
-      - uses: actions/upload-artifact@v2
-        with:
-          name: graphql-client-build
-          path: ./lib
+      - name: Publish
+        run: yarn publish
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - uses: actions/download-artifact@v2
-        with:
-          name: graphql-client-build
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}

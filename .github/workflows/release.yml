@@ -26,6 +26,10 @@ jobs:
         run: yarn test:unit
       - name: Build
         run: yarn build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: graphql-client-build
+          path: ./lib
 
   publish-npm:
     needs: build
@@ -36,6 +40,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: yarn publish
+      - uses: actions/download-artifact@v2
+        with:
+          name: graphql-client-build
+      - run: yarn publish @moveaxlab/graphql-client.${{}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

@@ -1,6 +1,6 @@
 {
   "name": "@moveaxlab/graphql-client",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Utilities to build GraphQL clients.",
   "homepage": "https://github.com/moveaxlab/graphql-client",
   "main": "./lib/index.js",

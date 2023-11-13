@@ -38,8 +38,8 @@
     "zen-observable": "^0.8.15"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "@graphql-codegen/add": "^1.13.2",
     "@graphql-codegen/cli": "^1.13.2",
     "@graphql-codegen/fragment-matcher": "^1.17.4",
@@ -52,9 +52,9 @@
     "@types/redux-saga-tester": "^1.0.1",
     "@types/websocket": "^1.0.0",
     "apollo-server": "^2.16.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "express": "^4.17.1",
     "graphql-import": "^1.0.2",
     "graphql-import-node": "^0.0.4",

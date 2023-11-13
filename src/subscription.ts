@@ -5,8 +5,9 @@ import {
   DocumentNode,
   FetchResult,
   InMemoryCache,
-} from '@apollo/client';
+} from '@apollo/client/core';
 import { GraphQLWsLink } from './graphql-ws.link';
+import { RequestVariables } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface MakeSubscriptionOptions<R, E, TE = E> {
@@ -140,7 +141,7 @@ export abstract class SubscriptionService {
       retryAttempts: Number.POSITIVE_INFINITY,
       connectionParams: this.connectionParams,
       retryWait: this.options.retryWait ?? exponentialBackoff,
-      isFatalConnectionProblem: () => false,
+      shouldRetry: () => true,
       on: {
         connected: this.handleConnected,
       },
@@ -255,7 +256,7 @@ export abstract class SubscriptionService {
     return `${name}:${stringify(variables)}`;
   };
 
-  protected subscribe = async <V, R, TR = R>(
+  protected subscribe = async <V extends RequestVariables, R, TR = R>(
     name: string,
     subscriptionTransformer: (data: FetchResult<R>) => TR | null,
     query: DocumentNode,
@@ -274,7 +275,10 @@ export abstract class SubscriptionService {
 
     await this.isConnected;
 
-    const observable = this.apolloClient.subscribe({ query, variables });
+    const observable = this.apolloClient.subscribe({
+      query,
+      variables: variables ? variables : undefined,
+    });
 
     const dispatch = this.dispatch;
     const onSubscriptionError = this.onSubscriptionError;
@@ -309,7 +313,7 @@ export abstract class SubscriptionService {
     this.activeSubscriptions.delete(subscriptionKey);
   };
 
-  protected makeSubscription = <R, E, TE = E>({
+  protected makeSubscription = <R extends RequestVariables, E, TE = E>({
     eventCreator,
     name,
     subscription,

@@ -4,7 +4,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
   PossibleTypesMap,
-} from '@apollo/client';
+} from '@apollo/client/core';
 import { createUploadLink } from 'apollo-upload-client';
 import {
   DocumentNode,
@@ -16,6 +16,7 @@ import { ClientError } from './client-error';
 import { NetworkError } from './network-error';
 import { SentryLink } from 'apollo-link-sentry';
 import { Operation } from '@apollo/client/core';
+import { RequestVariables } from './types';
 
 export interface IntrospectionResultData {
   __schema: {
@@ -192,8 +193,9 @@ export abstract class GraphQLClient {
         .pop();
     }
     if (
-      'networkError' in e ||
-      ('message' in e && e.message.startsWith('Network error'))
+      e instanceof Error &&
+      ('networkError' in e ||
+        ('message' in e && e.message.startsWith('Network error')))
     ) {
       return new NetworkError(e);
     }
@@ -235,7 +237,7 @@ export abstract class GraphQLClient {
     return selection.name.value;
   };
 
-  protected createMutation = <V, R, TR = R>(
+  protected createMutation = <V extends RequestVariables, R, TR = R>(
     mutation: DocumentNode,
     options?: {
       authenticated?: boolean;
@@ -270,7 +272,7 @@ export abstract class GraphQLClient {
       try {
         const response = await client.mutate<R>({
           mutation,
-          variables,
+          variables: variables ? variables : undefined,
           context,
         });
 
@@ -306,7 +308,7 @@ export abstract class GraphQLClient {
     }
   };
 
-  protected createQuery = <V, R, TR = R>(
+  protected createQuery = <V extends RequestVariables, R, TR = R>(
     query: DocumentNode,
     options?: {
       authenticated?: boolean;
@@ -341,7 +343,7 @@ export abstract class GraphQLClient {
       try {
         const response = await client.query<R>({
           query,
-          variables,
+          variables: variables ? variables : undefined,
           context,
           fetchPolicy: 'no-cache',
         });

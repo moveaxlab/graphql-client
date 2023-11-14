@@ -1,4 +1,7 @@
 # GraphQL client utils
+![NPM](https://img.shields.io/npm/l/%40moveaxlab%2Fgraphql-client)
+[![npm](https://img.shields.io/npm/v/@moveaxlab/graphql-client)](https://www.npmjs.com/package/@moveaxlab/graphql-client)
+![Static Badge](https://img.shields.io/badge/node_version-_%3E%3D12-green)
 
 This package contains utilities to create GraphQL clients for queries, mutations, and subscriptions.
 The clients provide authentication via cookies or a bearer token authorization header.

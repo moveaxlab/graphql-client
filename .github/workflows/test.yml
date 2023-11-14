@@ -26,7 +26,3 @@ jobs:
       run: yarn test:lint
     - name: Run unit tests with coverage
       run: yarn test:unit
-    - name: Upload coverage data to coveralls
-      uses: coverallsapp/github-action@v1.1.2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}

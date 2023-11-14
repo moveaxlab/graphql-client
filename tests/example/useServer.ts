@@ -1,6 +1,11 @@
 import * as http from 'http';
 import * as ws from 'ws';
-import { Disposable, makeServer, ServerOptions } from 'graphql-ws';
+import {
+  ConnectionInitMessage,
+  Disposable,
+  makeServer,
+  ServerOptions,
+} from 'graphql-ws';
 
 // for nicer documentation
 type WebSocket = typeof ws.prototype;
@@ -26,7 +31,7 @@ export interface Extra {
  * This is a basic starter, feel free to copy the code over and adjust it to your needs
  */
 export function useServer(
-  options: ServerOptions<Extra>,
+  options: ServerOptions<ConnectionInitMessage['payload'], Extra>,
   ws: WebSocketServer,
   /**
    * The timout between dispatched keep-alive messages. Internally uses the [ws Ping and Pongs]((https://developer.mozilla.org/en-US/docs/Web/API/wss_API/Writing_ws_servers#Pings_and_Pongs_The_Heartbeat_of_wss))
@@ -37,7 +42,7 @@ export function useServer(
    */
   keepAlive = 12 * 1000
 ): Disposable {
-  const server = makeServer<Extra>(options);
+  const server = makeServer<ConnectionInitMessage['payload'], Extra>(options);
 
   ws.on('error', err => {
     // catch the first thrown error and re-throw it once all clients have been notified
@@ -59,7 +64,7 @@ export function useServer(
 
   ws.on('connection', (socket, request) => {
     // keep alive through ping-pong messages
-    let pongWait: NodeJS.Timeout | null = null;
+    let pongWait: ReturnType<typeof setTimeout> | null = null;
     const pingInterval =
       keepAlive > 0 && isFinite(keepAlive)
         ? setInterval(() => {

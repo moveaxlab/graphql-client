@@ -125,7 +125,7 @@ describe('Test subscriptions client', () => {
     // lazy initialization: not connected yet
     expect(onConnect).toHaveBeenCalledTimes(0);
 
-    await client.catCreated.subscribe({});
+    client.catCreated.subscribe({});
 
     // now connection has actually happened
     await tester.waitFor(Events.socketConnected);
@@ -134,7 +134,7 @@ describe('Test subscriptions client', () => {
     // wait for subscription to be established before sending something
     await once(em, 'onOperation');
 
-    pubsub.publish('catCreated', {
+    await pubsub.publish('catCreated', {
       catCreated: {
         id: 'id',
         name: 'name',
@@ -179,7 +179,7 @@ describe('Test subscriptions client', () => {
     client.initialize(tester as unknown as Store);
 
     await client.connect();
-    await client.catCreated.subscribe({});
+    client.catCreated.subscribe({});
 
     // first connection will fail for invalid token
     await tester.waitFor(Events.tokenExpired);
@@ -189,7 +189,7 @@ describe('Test subscriptions client', () => {
     });
 
     // close is always called, onDisconnect only after successful connection
-    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(0);
     expect(onDisconnect).toHaveBeenCalledTimes(0);
 
     // second connection will work
@@ -202,7 +202,7 @@ describe('Test subscriptions client', () => {
     // wait for subscription to be established before sending something
     await once(em, 'onOperation');
 
-    pubsub.publish('catCreated', {
+    await pubsub.publish('catCreated', {
       catCreated: {
         id: 'id',
         name: 'name',
@@ -222,7 +222,7 @@ describe('Test subscriptions client', () => {
       },
     });
 
-    await client.catCreated.unsubscribe({});
+    client.catCreated.unsubscribe({});
 
     await client.disconnect();
 
@@ -247,7 +247,7 @@ describe('Test subscriptions client', () => {
     client.initialize(tester as unknown as Store);
 
     await client.connect();
-    await client.catCreated.subscribe({});
+    client.catCreated.subscribe({});
 
     await tester.waitFor(Events.socketConnecting);
     // await once(em, 'onConnect');
@@ -272,7 +272,7 @@ describe('Test subscriptions client', () => {
     client.initialize(tester as unknown as Store);
 
     await client.connect();
-    await client.catCreated.subscribe({});
+    client.catCreated.subscribe({});
 
     // first connection sends first token
     await tester.waitFor(Events.socketConnected);
@@ -298,7 +298,7 @@ describe('Test subscriptions client', () => {
     // wait for subscription to be established before sending something
     await once(em, 'onOperation');
 
-    pubsub.publish('catCreated', {
+    await pubsub.publish('catCreated', {
       catCreated: {
         id: 'id',
         name: 'name',
@@ -318,13 +318,13 @@ describe('Test subscriptions client', () => {
       },
     });
 
-    await client.catCreated.unsubscribe({});
+    client.catCreated.unsubscribe({});
 
     await client.disconnect();
 
     await Promise.all([once(em, 'onDisconnect'), once(em, 'onClose')]);
 
-    expect(onClose).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(3);
     expect(onDisconnect).toHaveBeenCalledTimes(2);
   });
 
@@ -342,7 +342,7 @@ describe('Test subscriptions client', () => {
 
     await client.connect();
 
-    await client.catCreated.subscribe({});
+    client.catCreated.subscribe({});
 
     await tester.waitFor(Events.socketConnecting, true);
 

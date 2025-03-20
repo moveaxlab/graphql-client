@@ -237,7 +237,7 @@ export abstract class GraphQLClient {
     return selection.name.value;
   };
 
-  protected createMutation = <V extends RequestVariables, R, TR = R>(
+  createMutation = <V extends RequestVariables, R, TR = R>(
     mutation: DocumentNode,
     options?: {
       authenticated?: boolean;
@@ -308,7 +308,7 @@ export abstract class GraphQLClient {
     }
   };
 
-  protected createQuery = <V extends RequestVariables, R, TR = R>(
+  createQuery = <V extends RequestVariables, R, TR = R>(
     query: DocumentNode,
     options?: {
       authenticated?: boolean;

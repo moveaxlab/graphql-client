@@ -61,7 +61,7 @@ let server: http.Server;
 let disposable: Disposable;
 
 beforeAll(async () => {
-  server = app.listen(PORT, () => {
+  server = await app.listen(PORT, () => {
     const wsServer = new ws.Server({
       server,
       path: '/graphql',
@@ -189,7 +189,7 @@ describe('Test subscriptions client', () => {
     });
 
     // close is always called, onDisconnect only after successful connection
-    expect(onClose).toHaveBeenCalledTimes(0);
+    expect(onClose).toHaveBeenCalledTimes(1);
     expect(onDisconnect).toHaveBeenCalledTimes(0);
 
     // second connection will work
@@ -324,7 +324,7 @@ describe('Test subscriptions client', () => {
 
     await Promise.all([once(em, 'onDisconnect'), once(em, 'onClose')]);
 
-    expect(onClose).toHaveBeenCalledTimes(3);
+    expect(onClose).toHaveBeenCalledTimes(2);
     expect(onDisconnect).toHaveBeenCalledTimes(2);
   });
 

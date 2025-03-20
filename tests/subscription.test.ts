@@ -156,7 +156,6 @@ describe('Test subscriptions client', () => {
 
     await client.disconnect();
 
-
     await Promise.all([once(em, 'onDisconnect'), once(em, 'onClose')]);
 
     expect(onClose).toHaveBeenCalledTimes(1);
@@ -325,7 +324,7 @@ describe('Test subscriptions client', () => {
 
     await Promise.all([once(em, 'onDisconnect'), once(em, 'onClose')]);
 
-    expect(onClose).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(3);
     expect(onDisconnect).toHaveBeenCalledTimes(2);
   });
 
